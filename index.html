@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧱 💧</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        img {
+            max-width: 100%; /* Image will never exceed screen width */
+            height: auto; /* Maintains aspect ratio */
+            display: block;
+            margin: 20px auto; /* Centers image with spacing */
+        }
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
+    <button id="randomPhotoButton">Prossima foto</button>
+    <div id="photoContainer">
+        <img id="randomPhoto" src="" alt="" style="display:none;">
+    </div>
+
+    <!-- JavaScript placed before closing body tag -->
+    <script>
+        const photos = [
+            'foto/photo1.jpg',
+            'foto/photo2.jpg',
+            'foto/photo3.jpg',
+            'foto/photo4.jpg',
+            'foto/photo5.jpg',
+            'foto/photo6.jpg',
+            'foto/photo7.jpg',
+            'foto/photo8.jpg',
+            'foto/photo9.jpg',
+            'foto/photo10.jpg',
+            'foto/photo11.jpg'
+        ];
+
+        let shuffledPhotos = [];
+        let currentIndex = 0;
+
+        // Function to shuffle an array (Fisher-Yates Shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to preload images
+        function preloadImages(photoArray) {
+            photoArray.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        }
+
+        // Function to get the next photo
+        function showNextPhoto() {
+            if (currentIndex === 0 || currentIndex >= shuffledPhotos.length) {
+                shuffledPhotos = shuffleArray([...photos]); // Shuffle a new copy of the photos array
+                currentIndex = 0; // Reset index
+            }
+
+            const img = document.getElementById('randomPhoto');
+            img.src = shuffledPhotos[currentIndex]; // Show the next photo in the shuffled list
+            img.style.display = 'block'; // Display the image
+
+            currentIndex++; // Move to the next photo for the next click
+        }
+
+        // Button click event listener
+        const button = document.getElementById('randomPhotoButton');
+        button.addEventListener('click', showNextPhoto);
+
+        // Preload images and show the first photo when the page is loaded
+        window.onload = () => {
+            preloadImages(photos);  // Preload the photos
+            showNextPhoto();        // Automatically show the first photo
+        };
+
+    </script>
+</body>
+</html>
