@@ -1,11 +1,3 @@
-
-You can modify the button text dynamically based on whether the special photo is being shown or not. Here's the updated code that handles this:
-
-Add a check: When the special photo is shown, the button text will say "Inizia".
-Change the button text: After the special photo is shown, the text will change to "Prossima foto" for subsequent images.
-Updated index.html
-html
-Copy code
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +41,6 @@ Copy code
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
-    <div id="photoCounter">Foto 1 di 11</div> <!-- Counter to show current photo -->
 
     <!-- JavaScript placed before closing body tag -->
     <script>
