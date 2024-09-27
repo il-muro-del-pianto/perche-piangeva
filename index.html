@@ -1,3 +1,11 @@
+
+You can modify the button text dynamically based on whether the special photo is being shown or not. Here's the updated code that handles this:
+
+Add a check: When the special photo is shown, the button text will say "Inizia".
+Change the button text: After the special photo is shown, the text will change to "Prossima foto" for subsequent images.
+Updated index.html
+html
+Copy code
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +45,7 @@
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="randomPhotoButton">Prossima foto</button>
+    <button id="randomPhotoButton">Inizia</button>
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
@@ -76,17 +84,21 @@
         function showNextPhoto() {
             const img = document.getElementById('randomPhoto');
             const photoCounter = document.getElementById('photoCounter');
+            const button = document.getElementById('randomPhotoButton');
 
             // Check if the special photo was already shown
             if (!specialPhotoShown) {
                 img.src = specialPhoto; // Show the special photo first
                 img.style.display = 'block'; // Display the image
                 specialPhotoShown = true; // Mark that the special photo has been shown
+                button.textContent = 'Scorri i piantini'; // Change button text after special photo is shown
             } else {
                 // Proceed with the regular photos
                 if (currentIndex >= photos.length) {
                     currentIndex = 0; // Loop back to the first photo
                 }
+
+                button.textContent = 'Prossima foto'; // Change button text after special photo is shown
 
                 img.src = photos[currentIndex]; // Show the next photo in the array
                 img.style.display = 'block'; // Display the image
