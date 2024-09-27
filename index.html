@@ -41,6 +41,7 @@
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
+    <div id="photoCounter">Foto 1 di 11</div> <!-- Counter to show current photo -->
 
     <!-- JavaScript placed before closing body tag -->
     <script>
@@ -82,14 +83,12 @@
                 img.src = specialPhoto; // Show the special photo first
                 img.style.display = 'block'; // Display the image
                 specialPhotoShown = true; // Mark that the special photo has been shown
-                button.textContent = 'Scorri i piantini'; // Change button text after special photo is shown
+                button.textContent = 'Prossima foto'; // Change button text after special photo is shown
             } else {
                 // Proceed with the regular photos
                 if (currentIndex >= photos.length) {
                     currentIndex = 0; // Loop back to the first photo
                 }
-
-                button.textContent = 'Prossima foto'; // Change button text after special photo is shown
 
                 img.src = photos[currentIndex]; // Show the next photo in the array
                 img.style.display = 'block'; // Display the image
