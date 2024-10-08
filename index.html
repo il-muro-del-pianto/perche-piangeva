@@ -37,13 +37,13 @@
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="showTextButton">Piantino precedente</button> <!-- Button to show text in a pop-up -->
-    <button id="randomPhotoButton">Prossimo piantino</button>
+    <button id="prevPhotoButton">Piantino precedente</button> <!-- Button to show text in a pop-up -->
+    <button id="nextPhotoButton">Prossimo piantino</button>
     
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
-    <button id="showTextButton">Mostra risposta</button>
+    <button id="showAnswerButton">Mostra risposta</button>
 
     <!-- JavaScript placed before closing body tag -->
     <script>
@@ -107,8 +107,8 @@
         }
 
         // Button click event listener for photos
-        const randomPhotoButton = document.getElementById('randomPhotoButton');
-        randomPhotoButton.addEventListener('click', showNextPhoto);
+        const nextPhotoButton = document.getElementById('nextPhotoButton');
+        nextPhotoButton.addEventListener('click', showNextPhoto);
 
         // Preload images and show the first photo when the page is loaded
         window.onload = () => {
@@ -117,9 +117,9 @@
         };
 
         // Show the corresponding text in a pop-up when the "Mostra Testo" button is clicked
-        const showTextButton = document.getElementById('showTextButton');
+        const prevPhotoButton = document.getElementById('prevPhotoButton');
         
-        showTextButton.addEventListener('click', () => {
+        prevPhotoButton.addEventListener('click', () => {
             // Display the corresponding text in an alert pop-up
             alert(photoTexts[currentIndex - 1]); // -1 because currentIndex was incremented
         });
