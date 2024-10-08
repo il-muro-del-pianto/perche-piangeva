@@ -37,15 +37,14 @@
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="randomPhotoButton">Inizia</button>
+    <button id="randomPhotoButton">Prossima foto</button>
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
-    <div id="photoCounter"></div> <!-- Counter to show current photo -->
+    <div id="photoCounter">Foto 1 di 11</div> <!-- Counter to show current photo -->
 
     <!-- JavaScript placed before closing body tag -->
     <script>
-        const specialPhoto = 'foto/specialPhoto.jpg'; // The special photo to show first
         const photos = [
             'foto/photo1.jpg',
             'foto/photo2.jpg',
@@ -62,7 +61,6 @@
         ];
 
         let currentIndex = 0;
-        let specialPhotoShown = false; // Track whether the special photo has been shown
 
         // Function to preload images
         function preloadImages(photoArray) {
@@ -74,29 +72,19 @@
 
         // Function to show the next photo in order
         function showNextPhoto() {
-            const img = document.getElementById('randomPhoto');
-            const photoCounter = document.getElementById('photoCounter');
-            const button = document.getElementById('randomPhotoButton');
-
-            // Check if the special photo was already shown
-            if (!specialPhotoShown) {
-                img.src = specialPhoto; // Show the special photo first
-                img.style.display = 'block'; // Display the image
-                specialPhotoShown = true; // Mark that the special photo has been shown
-                button.textContent = 'Prossima foto'; // Change button text after special photo is shown
-            } else {
-                // Proceed with the regular photos
-                if (currentIndex >= photos.length) {
-                    currentIndex = 0; // Loop back to the first photo
-                }
-
-                img.src = photos[currentIndex]; // Show the next photo in the array
-                img.style.display = 'block'; // Display the image
-                // Update the counter text (index + 1 because arrays are 0-based)
-                photoCounter.textContent = `Foto ${currentIndex + 1} di ${photos.length}`;
-
-                currentIndex++; // Move to the next photo for the next click
+            if (currentIndex >= photos.length) {
+                currentIndex = 0; // Loop back to the first photo
             }
+
+            const img = document.getElementById('randomPhoto');
+            img.src = photos[currentIndex]; // Show the next photo in the array
+            img.style.display = 'block'; // Display the image
+
+            // Update the counter text
+            const photoCounter = document.getElementById('photoCounter');
+            photoCounter.textContent = `Foto ${currentIndex + 1} di ${photos.length}`;
+
+            currentIndex++; // Move to the next photo for the next click
         }
 
         // Button click event listener
@@ -105,9 +93,10 @@
 
         // Preload images and show the first photo when the page is loaded
         window.onload = () => {
-            preloadImages([specialPhoto, ...photos]);  // Preload the special and regular photos
-            showNextPhoto();        // Automatically show the first (special) photo
+            preloadImages(photos);  // Preload the photos
+            showNextPhoto();        // Automatically show the first photo
         };
+
     </script>
 </body>
 </html>
