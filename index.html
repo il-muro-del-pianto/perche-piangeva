@@ -33,15 +33,30 @@
             font-size: 1.2em;
             margin-top: 10px;
         }
+        #textBox {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 80%;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
     <button id="randomPhotoButton">Prossima foto</button>
+    <button id="showTextButton">Mostra Testo</button> <!-- Button to show text -->
+    
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
     <div id="photoCounter">Foto 1 di 11</div> <!-- Counter to show current photo -->
+
+    <!-- Text box to display different text based on the photo -->
+    <div id="textBox"></div>
 
     <!-- JavaScript placed before closing body tag -->
     <script>
@@ -59,6 +74,22 @@
             'foto/photo11.jpg',
             'foto/photo12.jpg',
             'foto/photo13.jpg'
+        ];
+
+        const photoTexts = [
+            'Testo per la foto 1.',
+            'Testo per la foto 2.',
+            'Testo per la foto 3.',
+            'Testo per la foto 4.',
+            'Testo per la foto 5.',
+            'Testo per la foto 6.',
+            'Testo per la foto 7.',
+            'Testo per la foto 8.',
+            'Testo per la foto 9.',
+            'Testo per la foto 10.',
+            'Testo per la foto 11.',
+            'Testo per la foto 12.',
+            'Testo per la foto 13.'
         ];
 
         let currentIndex = 0;
@@ -86,11 +117,15 @@
             photoCounter.textContent = `Foto ${currentIndex + 1} di ${photos.length}`;
 
             currentIndex++; // Move to the next photo for the next click
+
+            // Hide the text box whenever a new photo is shown
+            const textBox = document.getElementById('textBox');
+            textBox.style.display = 'none';
         }
 
-        // Button click event listener
-        const button = document.getElementById('randomPhotoButton');
-        button.addEventListener('click', showNextPhoto);
+        // Button click event listener for photos
+        const randomPhotoButton = document.getElementById('randomPhotoButton');
+        randomPhotoButton.addEventListener('click', showNextPhoto);
 
         // Preload images and show the first photo when the page is loaded
         window.onload = () => {
@@ -98,6 +133,15 @@
             showNextPhoto();        // Automatically show the first photo
         };
 
+        // Show the corresponding text when the "Mostra Testo" button is clicked
+        const showTextButton = document.getElementById('showTextButton');
+        const textBox = document.getElementById('textBox');
+        
+        showTextButton.addEventListener('click', () => {
+            // Set the text based on the current photo
+            textBox.textContent = photoTexts[currentIndex - 1]; // -1 because currentIndex was incremented
+            textBox.style.display = 'block'; // Show the text box
+        });
     </script>
 </body>
 </html>
