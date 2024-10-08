@@ -117,9 +117,9 @@
         };
 
         // Show the corresponding text in a pop-up when the "Mostra Testo" button is clicked
-        const prevPhotoButton = document.getElementById('prevPhotoButton');
+        const showAnswerButton = document.getElementById('showAnswerButton');
         
-        prevPhotoButton.addEventListener('click', () => {
+        showAnswerButton.addEventListener('click', () => {
             // Display the corresponding text in an alert pop-up
             alert(photoTexts[currentIndex - 1]); // -1 because currentIndex was incremented
         });
