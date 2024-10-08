@@ -37,13 +37,13 @@
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="prevPhotoButton">Piantino precedente</button> <!-- Button to show text in a pop-up -->
-    <button id="nextPhotoButton">Prossimo piantino</button>
+    <button id="prevPhotoButton">Piantino precedente</button> <!-- Button to go to previous photo -->
+    <button id="nextPhotoButton">Prossimo piantino</button> <!-- Button to go to next photo -->
     
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
-    <button id="showAnswerButton">Mostra risposta</button>
+    <button id="showAnswerButton">Mostra risposta</button> <!-- Button to show the text for the current photo -->
 
     <!-- JavaScript placed before closing body tag -->
     <script>
@@ -64,8 +64,8 @@
         ];
 
         const photoTexts = [
-            '15 Maggio 2023. La foto forse più emblematica degli ultimi anni. Miriam compra su Vinted un paio di Airpods. Sono nuove e costano 70€, un prezzo molto conveniente, che farebbe insospettire chiunque. Ma non lei. Le arrivano, le prova e dice che non funzionano bene. Allora andiamo all\' Apple Store più vicino per capirne di più. Salta fuori che sono un clone cinese. Miriam la prende male. Il resto è storia.',
-            '5 Marzo 2022. Qualche giorno prima Miriam risulta positiva al Covid. Da brava cittadina quale è, si isola nell\' appartamento di Via Pennato nel quale vive. E\' una settimana difficile, fatta di sforzi e di rinunce. Durante questi giorni, incurante del prezzo dei tamponi (cosa MOLTO strana per lei) Miriam si testa di continuo. Finalmente si convince a rallentare la sua smania e aspettare il Sabato per ri-testarsi. Il giorno fatidico arriva e lei è pronta. Fa il tampone in diretta FaceTime con me. Risulta positiva. Non è contenta.',
+            '15 Maggio 2023. La foto forse più emblematica degli ultimi anni. Miriam compra su Vinted un paio di Airpods...',
+            '5 Marzo 2022. Qualche giorno prima Miriam risulta positiva al Covid...',
             'Testo per la foto 3.',
             'Testo per la foto 4.',
             'Testo per la foto 5.',
@@ -91,37 +91,43 @@
 
         // Function to show the next photo in order
         function showNextPhoto() {
-            if (currentIndex >= photos.length) {
-                currentIndex = 0; // Loop back to the first photo
-            }
-
-            const img = document.getElementById('randomPhoto');
-            img.src = photos[currentIndex]; // Show the next photo in the array
-            img.style.display = 'block'; // Display the image
-
-            // Update the counter text
-            const photoCounter = document.getElementById('photoCounter');
-            photoCounter.textContent = `Foto ${currentIndex + 1} di ${photos.length}`;
-
-            currentIndex++; // Move to the next photo for the next click
+            currentIndex = (currentIndex + 1) % photos.length; // Increment index and loop back at the end
+            displayPhoto();
         }
 
-        // Button click event listener for photos
+        // Function to show the previous photo in order
+        function showPrevPhoto() {
+            currentIndex = (currentIndex - 1 + photos.length) % photos.length; // Decrement index and loop back at the start
+            displayPhoto();
+        }
+
+        // Function to display the current photo and update the text
+        function displayPhoto() {
+            const img = document.getElementById('randomPhoto');
+            img.src = photos[currentIndex]; // Show the current photo
+            img.style.display = 'block'; // Display the image
+        }
+
+        // Event listener for the next photo button
         const nextPhotoButton = document.getElementById('nextPhotoButton');
         nextPhotoButton.addEventListener('click', showNextPhoto);
+
+        // Event listener for the previous photo button
+        const prevPhotoButton = document.getElementById('prevPhotoButton');
+        prevPhotoButton.addEventListener('click', showPrevPhoto);
 
         // Preload images and show the first photo when the page is loaded
         window.onload = () => {
             preloadImages(photos);  // Preload the photos
-            showNextPhoto();        // Automatically show the first photo
+            displayPhoto();         // Automatically show the first photo
         };
 
-        // Show the corresponding text in a pop-up when the "Mostra Testo" button is clicked
+        // Show the corresponding text in a pop-up when the "Mostra risposta" button is clicked
         const showAnswerButton = document.getElementById('showAnswerButton');
         
         showAnswerButton.addEventListener('click', () => {
             // Display the corresponding text in an alert pop-up
-            alert(photoTexts[currentIndex - 1]); // -1 because currentIndex was incremented
+            alert(photoTexts[currentIndex]); // Show the text for the current photo
         });
     </script>
 </body>
