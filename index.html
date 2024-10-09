@@ -13,39 +13,54 @@
             padding: 0;
         }
         h1 {
-            margin: 20px 0 10px; /* Adjust spacing above and below the header */
+            margin: 20px 0 10px;
         }
         img {
-            max-width: 100%; /* Image will never exceed screen width */
-            height: auto; /* Maintains aspect ratio */
+            max-width: 100%;
+            height: auto;
             display: block;
-            margin: 10px auto; /* Centers image with less spacing */
+            margin: 10px auto;
         }
         button {
             font-size: 1.2em;
             padding: 10px 20px;
-            margin-top: 10px; /* Reduced margin above the button */
+            margin-top: 10px;
         }
         #photoContainer {
-            margin-top: 10px; /* Bring the image container closer to the button */
+            margin-top: 10px;
         }
         #photoCounter {
             font-size: 1.2em;
             margin-top: 10px;
         }
+        .choice-btn {
+            font-size: 1em;
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="prevPhotoButton">Piantino precedente</button> <!-- Button to go to previous photo -->
-    <button id="nextPhotoButton">Prossimo piantino</button> <!-- Button to go to next photo -->
+    <button id="prevPhotoButton">Piantino precedente</button>
+    <button id="nextPhotoButton">Piantino successivo</button>
     
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
     </div>
-    <button id="showAnswerButton">Mostra risposta</button> <!-- Button to show the text for the current photo -->
+    <button id="showAnswerButton">Mostra risposta</button>
 
-    <!-- JavaScript placed before closing body tag -->
+    <div id="choicesContainer">
+        <!-- Four choice buttons will go here -->
+        <button class="choice-btn" id="choice1">Choice 1</button>
+        <button class="choice-btn" id="choice2">Choice 2</button>
+        <button class="choice-btn" id="choice3">Choice 3</button>
+        <button class="choice-btn" id="choice4">Choice 4</button>
+    </div>
+
     <script>
         const photos = [
             'foto/photo1.jpg',
@@ -62,7 +77,6 @@
             'foto/photo12.jpg',
             'foto/photo13.jpg'
         ];
-
         const photoTexts = [
             '15 Maggio 2023. La foto forse più emblematica degli ultimi anni. Miriam compra su Vinted un paio di Airpods. Sono nuove e costano 70€, un prezzo molto conveniente, che farebbe insospettire chiunque. Ma non lei. Le arrivano, le prova e dice che non funzionano bene. Allora andiamo all\' Apple Store più vicino per capirne di più. Salta fuori che sono un clone cinese. Miriam la prende male. Il resto è storia.',
             '5 Marzo 2022. Qualche giorno prima Miriam risulta positiva al Covid. Da brava cittadina quale è, si isola nell\' appartamento di Via Pennato nel quale vive. E\' una settimana difficile, fatta di sforzi e di rinunce. Durante questi giorni, incurante del prezzo dei tamponi (cosa MOLTO strana per lei) Miriam si testa di continuo. Finalmente si convince a rallentare la sua smania e aspettare il Sabato per ri-testarsi. Il giorno fatidico arriva e lei è pronta. Fa il tampone in diretta FaceTime con me. Risulta positiva. Non è contenta.',
@@ -78,7 +92,10 @@
             'Testo per la foto 12.',
             'Testo per la foto 13.'
         ];
-        
+
+       // Correct answer indices corresponding to each photo
+        const correctAnswers = [2, 1, 0, 3, 1, 2, 3, 0, 1, 2, 0, 3, 2];
+
         let currentIndex = 0;
 
         // Function to preload images
@@ -91,44 +108,69 @@
 
         // Function to show the next photo in order
         function showNextPhoto() {
-            currentIndex = (currentIndex + 1) % photos.length; // Increment index and loop back at the end
+            currentIndex = (currentIndex + 1) % photos.length;
             displayPhoto();
+            resetChoices();
         }
 
         // Function to show the previous photo in order
         function showPrevPhoto() {
-            currentIndex = (currentIndex - 1 + photos.length) % photos.length; // Decrement index and loop back at the start
+            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
             displayPhoto();
+            resetChoices();
         }
 
-        // Function to display the current photo and update the text
+        // Function to display the current photo
         function displayPhoto() {
             const img = document.getElementById('randomPhoto');
-            img.src = photos[currentIndex]; // Show the current photo
-            img.style.display = 'block'; // Display the image
+            img.src = photos[currentIndex];
+            img.style.display = 'block';
         }
 
-        // Event listener for the next photo button
-        const nextPhotoButton = document.getElementById('nextPhotoButton');
-        nextPhotoButton.addEventListener('click', showNextPhoto);
+        // Function to reset the choice button colors
+        function resetChoices() {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(button => {
+                button.style.backgroundColor = '';
+                button.disabled = false;
+            });
+        }
 
-        // Event listener for the previous photo button
-        const prevPhotoButton = document.getElementById('prevPhotoButton');
-        prevPhotoButton.addEventListener('click', showPrevPhoto);
+        // Function to check the answer and color the buttons
+        function checkAnswer(selectedIndex) {
+            const correctIndex = correctAnswers[currentIndex];
+            const buttons = document.querySelectorAll('.choice-btn');
+            
+            buttons.forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.style.backgroundColor = 'green';  // Correct answer
+                } else {
+                    button.style.backgroundColor = 'red';  // Wrong answer
+                }
+                button.disabled = true;  // Disable all buttons after a choice
+            });
+        }
+
+        // Add event listeners for the four choice buttons
+        document.getElementById('choice1').addEventListener('click', () => checkAnswer(0));
+        document.getElementById('choice2').addEventListener('click', () => checkAnswer(1));
+        document.getElementById('choice3').addEventListener('click', () => checkAnswer(2));
+        document.getElementById('choice4').addEventListener('click', () => checkAnswer(3));
 
         // Preload images and show the first photo when the page is loaded
         window.onload = () => {
-            preloadImages(photos);  // Preload the photos
-            displayPhoto();         // Automatically show the first photo
+            preloadImages(photos);
+            displayPhoto();
         };
 
         // Show the corresponding text in a pop-up when the "Mostra risposta" button is clicked
-        const showAnswerButton = document.getElementById('showAnswerButton');
-        
-        showAnswerButton.addEventListener('click', () => {
-            // Display the corresponding text in an alert pop-up
-            alert(photoTexts[currentIndex]); // Show the text for the current photo
+        document.getElementById('showAnswerButton').addEventListener('click', () => {
+            alert(photoTexts[currentIndex]);
         });
+
+        // Event listener for the next/previous photo buttons
+        document.getElementById('nextPhotoButton').addEventListener('click', showNextPhoto);
+        document.getElementById('prevPhotoButton').addEventListener('click', showPrevPhoto);
     </script>
 </body>
 </html>
