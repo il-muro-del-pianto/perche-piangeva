@@ -61,10 +61,10 @@
             position: fixed; /* Stay in place */
             z-index: 1000; /* Higher than other content */
             left: 50%; /* Center horizontally */
-            top: 75%; /* Center vertically */
+            top: 70%; /* Center vertically */
             transform: translate(-50%, -50%); /* Adjust positioning */
-            width: 100%; /* Width of the popup */
-            max-height: 20%; /* Maximum height of the popup */
+            width: 80%; /* Width of the popup */
+            max-height: 30%; /* Maximum height of the popup */
             background-color: rgba(255, 255, 255, 0.95); /* White background with some opacity */
             border: 1px solid #888; /* Border for the popup */
             border-radius: 8px; /* Rounded corners */
@@ -74,17 +74,19 @@
             flex-direction: column; /* Vertical stacking */
         }
         
-        .text-container {
-            flex: 1; /* Allow the text container to grow */
-            max-height: 200px; /* Set a max height for the text container */
+        .popup-content {
+            flex: 1; /* Allow the content to grow */
+            display: flex; /* Flexbox for layout */
+            flex-direction: column; /* Vertical stacking */
+            max-height: 100%; /* Make sure it does not exceed the popup height */
             overflow-y: auto; /* Enable vertical scrolling */
         }
         
-        .close-button {
-            margin: 0; /* Remove margin */
-            align-self: flex-end; /* Align button to the right */
-            padding: 10px; /* Keep the padding for the button */
+        .text-container {
+            flex: 1; /* Allow the text container to grow */
+            overflow-y: auto; /* Enable vertical scrolling */
         }
+
 
     </style>
 </head>
