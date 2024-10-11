@@ -275,7 +275,7 @@
 
         document.getElementById("showAnswerButton").onclick = function() {
             const answer = getAnswerForPhoto(currentIndex);
-            document.getElementById("answerText").innerText = answer;
+            document.getElementById("answerText").innerHTML = answer;
             document.getElementById("popup").style.display = "flex"; // Use flex to allow proper layout
         }
         
