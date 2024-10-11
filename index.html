@@ -126,7 +126,7 @@
         <button class="choice-btn" id="choice1">Soldi</button>
         <button class="choice-btn" id="choice2">Amore</button>
         <button class="choice-btn" id="choice3">Studio</button>
-        <button class="choice-btn" id="choice4">Stanchezza</button>
+        <button class="choice-btn" id="choice4">Salute</button>
     </div>
 
     <button id="showAnswerButton">Mostra risposta</button>
@@ -171,7 +171,19 @@
         ];
 
        // Correct answer indices corresponding to each photo
-        const correctAnswers = [0, 2, 3, 0, 1, 2, 1, 0, 1, 3, 0];
+        const correctAnswers = [
+            [0,],
+            [2,3],
+            [3,], 
+            [0,1,2,3], 
+            [1,],
+            [2,],
+            [1,],
+            [0,2],
+            [1,],
+            [3,],
+            [1,],
+        ];
 
         let currentIndex = 0;
 
@@ -213,18 +225,27 @@
             });
         }
 
-        // Function to check the answer and color the buttons
         function checkAnswer(selectedIndex) {
-            const correctIndex = correctAnswers[currentIndex];
+            const correctIndices = correctAnswers[currentIndex];
             const buttons = document.querySelectorAll('.choice-btn');
-            
+            const selectedButton = buttons[selectedIndex];
+        
+            // Check if the selected index is in the correct indices array
+            const isCorrect = correctIndices.includes(selectedIndex);
+        
+            // Set button colors based on correctness
+            if (isCorrect) {
+                selectedButton.style.backgroundColor = 'green'; // Correct answer
+            } else {
+                selectedButton.style.backgroundColor = 'red'; // Wrong answer
+            }
+        
+            // Disable all buttons after a choice
             buttons.forEach((button, index) => {
-                if (index === correctIndex) {
-                    button.style.backgroundColor = 'green';  // Correct answer
-                } else {
-                    button.style.backgroundColor = 'red';  // Wrong answer
+                button.disabled = true; // Disable all buttons
+                if (correctIndices.includes(index)) {
+                    button.style.backgroundColor = 'green'; // Show other correct answers in green
                 }
-                button.disabled = true;  // Disable all buttons after a choice
             });
         }
 
