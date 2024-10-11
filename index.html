@@ -131,18 +131,19 @@
 
     <button id="showAnswerButton">Mostra risposta</button>
 
-    <!-- Popup Structure -->
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <div class="text-container">
-            <p id="answerText">This is the right text!</p>
+        <!-- Popup Structure -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="text-container">
+                <p id="answerText">This is the right text!</p>
+            </div>
+            <button id="closePopupButton" class="close-button">Chiudi</button>
         </div>
-        <button id="closePopupButton" class="close-button">Chiudi</button>
     </div>
-</div>
 
-    
     <script>
+        let popupVisible = false; // Variable to track if the popup is visible
+        
         const photos = [
             'foto/1.jpg',
             'foto/2.jpg',
@@ -197,6 +198,8 @@
 
         // Function to show the next photo in order
         function showNextPhoto() {
+            if(popupVisible)
+                return;
             currentIndex = (currentIndex + 1) % photos.length;
             displayPhoto();
             resetChoices();
@@ -204,6 +207,8 @@
 
         // Function to show the previous photo in order
         function showPrevPhoto() {
+            if(popupVisible)
+                return;
             currentIndex = (currentIndex - 1 + photos.length) % photos.length;
             displayPhoto();
             resetChoices();
@@ -277,10 +282,12 @@
             const answer = getAnswerForPhoto(currentIndex);
             document.getElementById("answerText").innerHTML = answer;
             document.getElementById("popup").style.display = "flex"; // Use flex to allow proper layout
+            popupVisible = true;
         }
         
         document.getElementById("closePopupButton").onclick = function() {
             document.getElementById("popup").style.display = "none"; // Hide the popup
+            popupVisible = false;
         }
 
 
