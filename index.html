@@ -241,8 +241,10 @@
             // Set button colors based on correctness
             if (isCorrect) {
                 selectedButton.style.backgroundColor = '#baffb9'; // Correct answer
+                selectedButton.innerHTML += ✅;
             } else {
                 selectedButton.style.backgroundColor = '#ffb09c'; // Wrong answer
+                selectedButton.innerHTML += ❌;
             }
         
             // Disable all buttons after a choice
