@@ -74,18 +74,23 @@
         padding: 5px; /* Padding inside the popup */
     }
     
-    .close-button {
-        background-color: #4CAF50; /* Green background */
-        color: white; /* White text */
-        padding: 10px; /* Padding */
-        border: none; /* No border */
-        border-radius: 5px; /* Rounded corners */
-        cursor: pointer; /* Pointer cursor on hover */
-        width: calc(70%); /* Full width */
-        max-width: 400px; /* Same maximum width as popup */
-        margin: 10px auto; /* Center the button with margin */
-        display: block; /* Make it a block element */
-    }
+.close-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px; /* Padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: calc(70%); /* Same width as popup */
+    max-width: 400px; /* Same maximum width as popup */
+    margin: 0; /* No margin */
+    display: block; /* Make it a block element */
+    position: relative; /* Ensure it follows the popup */
+    left: 50%; /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    /* Hide the button initially */
+    display: none; /* Hidden by default */
+}
 
 
     </style>
@@ -230,14 +235,15 @@
         }
 
         document.getElementById("showAnswerButton").onclick = function() {
-            // For example, let's say we want to show the answer for Photo 1 (index 0)
             const answer = getAnswerForPhoto(currentIndex);
             document.getElementById("answerText").innerText = answer;
             document.getElementById("popup").style.display = "block";
+            document.getElementById("closePopupButton").style.display = "block"; // Show close button
         }
 
         document.getElementById("closePopupButton").onclick = function() {
             document.getElementById("popup").style.display = "none";
+            document.getElementById("closePopupButton").style.display = "none"; // Hide close button
         }
 
 
