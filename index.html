@@ -75,13 +75,12 @@
         }
         
         .popup-content {
-            flex: 1; /* Allow the content to grow */
-            display: flex; /* Flexbox for layout */
-            flex-direction: column; /* Vertical stacking */
-            max-height: 100%; /* Make sure it does not exceed the popup height */
+            display: flex;
+            flex-direction: column;
+            max-height: 200px; /* Adjust height as necessary */
             overflow-y: auto; /* Enable vertical scrolling */
         }
-
+        
         /* For WebKit browsers (Chrome, Safari) */
         .popup-content::-webkit-scrollbar {
             width: 8px; /* Width of the scrollbar */
