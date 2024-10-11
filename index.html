@@ -60,14 +60,18 @@
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
-            left: 0;
-            bottom: 0; /* Position at the bottom */
-            width: 100%; /* Full width */
-            max-height: 300px; /* Maximum height of the popup */
+            left: 50%; /* Center horizontally */
+            top: 50%; /* Center vertically */
+            transform: translate(-50%, -50%); /* Adjust positioning */
+            width: 50%; /* Width of the popup */
+            max-width: 400px; /* Maximum width */
+            max-height: 30%; /* Maximum height of the popup */
             overflow-y: auto; /* Enable vertical scrolling */
-            background-color: rgba(255, 255, 255, 0.9); /* White background with some opacity */
-            border-top: 1px solid #888; /* Optional: border at the top */
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+            background-color: rgba(255, 255, 255, 0.95); /* White background with some opacity */
+            border: 1px solid #888; /* Border for the popup */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            padding: 20px; /* Padding inside the popup */
         }
 
         .popup-content {
