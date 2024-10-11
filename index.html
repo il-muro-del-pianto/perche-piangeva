@@ -283,6 +283,9 @@
             document.getElementById("answerText").innerHTML = answer;
             document.getElementById("popup").style.display = "flex"; // Use flex to allow proper layout
             popupVisible = true;
+            // Reset the scroll position to the top
+            const textContainer = document.querySelector('.text-container');
+            textContainer.scrollTop = 0; // Set scroll position to top
         }
         
         document.getElementById("closePopupButton").onclick = function() {
