@@ -55,6 +55,12 @@
             border-radius: 5px;
             cursor: pointer;
         }
+    
+        .button-row {
+            display: flex; /* Use flexbox for horizontal alignment */
+            justify-content: center; /* Center the buttons horizontally */
+            margin-bottom: 10px; /* Add some space between the rows */
+        }
         
         .popup {
             display: none; /* Hidden by default */
@@ -122,11 +128,14 @@
     </div>
 
     <div id="choicesContainer">
-        <!-- Four choice buttons will go here -->
-        <button class="choice-btn" id="choice1">Soldi</button>
-        <button class="choice-btn" id="choice2">Amore</button>
-        <button class="choice-btn" id="choice3">Studio</button>
-        <button class="choice-btn" id="choice4">Salute</button>
+        <div class="button-row">
+            <button class="choice-btn" id="choice1">Soldi</button>
+            <button class="choice-btn" id="choice2">Amore</button>
+        </div>
+        <div class="button-row">
+            <button class="choice-btn" id="choice3">Studio</button>
+            <button class="choice-btn" id="choice4">Salute</button>
+        </div>
     </div>
 
     <button id="showAnswerButton">Mostra risposta</button>
