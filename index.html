@@ -21,13 +21,22 @@
             display: block;
             margin: 10px auto;
         }
-        button {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            margin-top: 10px;
-        }
         #photoContainer {
-            margin-top: 10px;
+            position: relative;
+            width: 100%;
+        }
+        .click-area {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            cursor: pointer;
+        }
+        .click-area.left {
+            left: 0;
+        }
+        .click-area.right {
+            right: 0;
         }
         #photoCounter {
             font-size: 1.2em;
@@ -45,11 +54,11 @@
 </head>
 <body>
     <h1>Benvenuto al muro 🧱 del pianto 💧</h1>
-    <button id="prevPhotoButton">😭 precedente</button>
-    <button id="nextPhotoButton">😭 successivo</button>
     
     <div id="photoContainer">
         <img id="randomPhoto" src="" alt="" style="display:none;">
+        <div class="click-area left"></div>
+        <div class="click-area right"></div>
     </div>
     <button id="showAnswerButton">Mostra risposta</button>
 
@@ -92,84 +101,36 @@
             '19 Giugno 2022. Studiamo tutto il giorno a casa dei miei genitori. Miriam finisce il pomeriggio così stanca che dice che sta per addormentarsi (sono le 20:08 al momento di questa foto). Allora prende la bici e torna a casa sua in Via del Freddo. Mi chiama tipo 3 minuti dopo dicendo che è caduta sul marciapiede e si è sbucciata un ginocchio. Le vado incontro e la trovo che porta il bolide rosa a mano e piange. Si giustifica dicendo che era troppo stanca per guidare (LA BICI).'
         ];
 
-       // Correct answer indices corresponding to each photo
-        const correctAnswers = [0, 2, 3, 0, 1, 2, 1, 0, 1, 3, 0];
+        const correctAnswers = [0, 2, 3, 0, 1, 2, 1, 0, 1, 3, 2];  // Adjust with actual correct answers
 
-        let currentIndex = 0;
+        let currentPhotoIndex = 0;
 
-        // Function to preload images
-        function preloadImages(photoArray) {
-            photoArray.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-        }
+        const randomPhoto = document.getElementById('randomPhoto');
+        const showAnswerButton = document.getElementById('showAnswerButton');
+        const choiceButtons = document.querySelectorAll('.choice-btn');
 
-        // Function to show the next photo in order
+        // Show the first image initially
+        randomPhoto.src = photos[currentPhotoIndex];
+        randomPhoto.alt = photoTexts[currentPhotoIndex];
+        randomPhoto.style.display = "block";
+
+        // Show next photo
         function showNextPhoto() {
-            currentIndex = (currentIndex + 1) % photos.length;
-            displayPhoto();
-            resetChoices();
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+            randomPhoto.src = photos[currentPhotoIndex];
+            randomPhoto.alt = photoTexts[currentPhotoIndex];
         }
 
-        // Function to show the previous photo in order
-        function showPrevPhoto() {
-            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-            displayPhoto();
-            resetChoices();
+        // Show previous photo
+        function showPreviousPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+            randomPhoto.src = photos[currentPhotoIndex];
+            randomPhoto.alt = photoTexts[currentPhotoIndex];
         }
 
-        // Function to display the current photo
-        function displayPhoto() {
-            const img = document.getElementById('randomPhoto');
-            img.src = photos[currentIndex];
-            img.style.display = 'block';
-        }
-
-        // Function to reset the choice button colors
-        function resetChoices() {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.style.backgroundColor = '';
-                button.disabled = false;
-            });
-        }
-
-        // Function to check the answer and color the buttons
-        function checkAnswer(selectedIndex) {
-            const correctIndex = correctAnswers[currentIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            
-            buttons.forEach((button, index) => {
-                if (index === correctIndex) {
-                    button.style.backgroundColor = 'green';  // Correct answer
-                } else {
-                    button.style.backgroundColor = 'red';  // Wrong answer
-                }
-                button.disabled = true;  // Disable all buttons after a choice
-            });
-        }
-
-        // Add event listeners for the four choice buttons
-        document.getElementById('choice1').addEventListener('click', () => checkAnswer(0));
-        document.getElementById('choice2').addEventListener('click', () => checkAnswer(1));
-        document.getElementById('choice3').addEventListener('click', () => checkAnswer(2));
-        document.getElementById('choice4').addEventListener('click', () => checkAnswer(3));
-
-        // Preload images and show the first photo when the page is loaded
-        window.onload = () => {
-            preloadImages(photos);
-            displayPhoto();
-        };
-
-        // Show the corresponding text in a pop-up when the "Mostra risposta" button is clicked
-        document.getElementById('showAnswerButton').addEventListener('click', () => {
-            alert(photoTexts[currentIndex]);
-        });
-
-        // Event listener for the next/previous photo buttons
-        document.getElementById('nextPhotoButton').addEventListener('click', showNextPhoto);
-        document.getElementById('prevPhotoButton').addEventListener('click', showPrevPhoto);
+        // Add click events for left and right areas
+        document.querySelector('.click-area.left').addEventListener('click', showPreviousPhoto);
+        document.querySelector('.click-area.right').addEventListener('click', showNextPhoto);
     </script>
 </body>
 </html>
