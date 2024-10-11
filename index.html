@@ -81,7 +81,27 @@
             max-height: 100%; /* Make sure it does not exceed the popup height */
             overflow-y: auto; /* Enable vertical scrolling */
         }
+
+        /* For WebKit browsers (Chrome, Safari) */
+        .popup-content::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
         
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.95); /* Background of the track */
+        }
+        
+        .popup-content::-webkit-scrollbar-thumb {
+            background: black; /* Color of the scrollbar thumb */
+            border-radius: 4px; /* Rounded edges for the thumb */
+        }
+        
+        /* For Firefox */
+        .popup-content {
+            scrollbar-width: thin; /* Make scrollbar thinner */
+            scrollbar-color: black rgba(255, 255, 255, 0.95); /* thumb color and track color */
+        }
+                
         .text-container {
             flex: 1; /* Allow the text container to grow */
             overflow-y: auto; /* Enable vertical scrolling */
