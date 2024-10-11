@@ -46,7 +46,6 @@
             right: 0;
         }
 
-        
         .choice-btn {
             font-size: 1em;
             padding: 8px 16px;
@@ -74,20 +73,6 @@
             padding: 5px; /* Padding inside the popup */
         }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
         .close-button {
             background-color: #4CAF50; /* Green background */
             color: white; /* White text */
@@ -98,9 +83,6 @@
             width: 100%; /* Full width */
             margin-top: 10px; /* Margin on top */
         }
-
-
-        
     </style>
 </head>
 <body>
@@ -113,7 +95,6 @@
     </div>
 
     <div id="choicesContainer">
-        <!-- Four choice buttons will go here -->
         <button class="choice-btn" id="choice1">Soldi</button>
         <button class="choice-btn" id="choice2">Amore</button>
         <button class="choice-btn" id="choice3">Studio</button>
@@ -125,8 +106,8 @@
     <!-- Popup Structure -->
     <div id="popup" class="popup">
         <div class="popup-content">
-            <span id="closePopup" class="close">&times;</span>
             <p id="answerText">This is the right text!</p>
+            <button id="closePopupButton" class="close-button">Close</button> <!-- New close button -->
         </div>
     </div>
 
@@ -147,120 +128,55 @@
         ];
         const photoTexts = [
             '15 Maggio 2023. La foto forse più emblematica degli ultimi anni. Miriam compra su Vinted un paio di Airpods. Sono nuove e costano 70€, un prezzo molto conveniente, che farebbe insospettire chiunque. Ma non lei. Le arrivano, le prova e dice che non funzionano bene. Allora andiamo all\' Apple Store più vicino per capirne di più. Salta fuori che sono un clone cinese. Miriam la prende male. Il resto è storia.',
-            '10 Ottobre 2022ò, giorno della laurea. Miriam si sveglia alle 7 e LETTERALMENTE la prima cosa che fa dopo aver alzato la mascherina dagli occhi è esordire con un principio di piantino perchè "ho dormito solo 3 ore". Fortunatamente si placa subito e nemmeno una lacrima viene versata. Sono contento. Purtroppo però è solo un\' illusione: 30 secondi dopo si alza e va in bagno, ribadendo che "ho paura di accendere la luce e vedere che aspetto ho". Beh quella maledetta luce la accende e sotto i suoi occhi trova due borse che arrivano a terra. Esplode in un pianto isterico accompagnato da commenti del tipo "di questo giorno mi rimarranno solo le foto e ho questo aspetto gneeeee". Poco dopo si fionda in cucina e si strofina un cubetto di ghiaccio in faccia per sgonfiare le Gucci che ha sotto agli occhi. Serve a poco. Tra me e me penso che la giornata inzia male.',
+            '10 Ottobre 2022, giorno della laurea. Miriam si sveglia alle 7 e LETTERALMENTE la prima cosa che fa dopo aver alzato la mascherina dagli occhi è esordire con un principio di piantino perchè "ho dormito solo 3 ore". Fortunatamente si placa subito e nemmeno una lacrima viene versata. Sono contento. Purtroppo però è solo un\' illusione: 30 secondi dopo si alza e va in bagno, ribadendo che "ho paura di accendere la luce e vedere che aspetto ho". Beh quella maledetta luce la accende e sotto i suoi occhi trova due borse che arrivano a terra. Esplode in un pianto isterico accompagnato da commenti del tipo "di questo giorno mi rimarranno solo le foto e ho questo aspetto gneeeee". Poco dopo si fionda in cucina e si strofina un cubetto di ghiaccio in faccia per sgonfiare le Gucci che ha sotto agli occhi. Serve a poco. Tra me e me penso che la giornata inzia male.',
             '5 Marzo 2022. Qualche giorno prima Miriam risulta positiva al Covid. Da brava cittadina quale è, si isola nell\' appartamento di Via Pennato nel quale vive. E\' una settimana difficile, fatta di sforzi e di rinunce. Durante questi giorni, incurante del prezzo dei tamponi (cosa MOLTO strana per lei) Miriam si testa di continuo. Finalmente si convince a rallentare la sua smania e aspettare il Sabato per ri-testarsi. Il giorno fatidico arriva e lei è pronta. Fa il tampone in diretta FaceTime con me. Risulta positiva. Non è contenta.',
             '27 Agosto 2023. Questa foto non ha una spiegazione. Miriam piange mentre mangia un ghiacciolo.',
             '25 Giugno 2022. Tra una settimana parto per il tircocinio che mi terrà lontano da Udine per sei brevissimi mesi. Miriam sfoga la sua frustrazione in biblioteca umanistica. Dal Gennaio dello stesso anno fino a quel momento, come una vedova Miriam si lascia andare a piantini già nostalgici (non sono acora partito) con una frequenza di 2/3 a settimana. Sono mesi lunghi e difficili.',
-            '17 Giugno 2024. Miriam sta contemporaneamente scrivendo la tesi (quanti piantini!) e preparando medicina interna. La frustrazione è alle stelle, e io con contribuisco dicendole in contionuo che non mi sembra un\' adulta funzionale per come sta gestendo la sua vita. Decide di paccare l\'esame. Da lì in poi una montagna russa di emozioni, che si alternano tra la tristezza e la disperazione, passando per l\'odio verso "quella puttana di Federica la specializzanda", sua correlatrice. Una sera di giugno questi sentimenti culminano in un piantino che addirittura arriva mentre si lava i denti. Segnale chiaro e palese della serietà della situazione.',
-            '17 Dicembre 2022. Momento di gelosia retroattiva. Siamo in macchina al semaforo di piazzale Chiavris. In letteralmente 10 secondi Miriam passa dal ridere fragorosamente a piangere pensando a una tipa del passato. Poco dopo si riprende e passa oltre. Uno dei piantini più maturi mai fatti.',
-            '3 Febbraio 2024. Miriam si lamenta della sua \'condizione\' di studentessa scapestrata. Vuole finire di studiare il prima possibile e iniziare a fatturare. In qeusta foto è cosi disperante che sembra le si stia sciogliendo la faccia.',
-            '20 Novembre 2022. Durante il tirocinio ci sentiamo compulsivamente su FaceTime. Per mantenere lo stesso ritmo che aveva prima della mia partenza, Miriam continua a piangere in chiamata ogni 2/3 giorni per i motivi più disparati che coinvolgano anche lontanamente la nostra relazione. Come quella volta che pianse perchè le dissi che era arrivata una nuova tirocinante italiana. In questo fotogramma non ricrodo esattamente il motivo della crisi, ma quasi certamente era legato alla frase "mi manchi tanto". Veramente una sottona.',
-            '19 Settembre 2024. Tra poco è il turno di Miriam per l\' esame di pediatria, l\' ultimo. Lacrime sul suo volto non se ne vedono, solo disperazione. Ma questa foto non è qui per quello che è stato, ma per quello che poteva essere. Per quello che sarebbe successo se l\' esame fosse andato male (voto <30). Non saremmo qui a festeggiare. Io forse sarei single. La prof di pediatria morta. Il reparto esploso. Miriam sarebbe ancora in lacrime. Grazie al cielo nulla di tutto questo è stato e mai sarà.',
-            '19 Giugno 2022. Studiamo tutto il giorno a casa dei miei genitori. Miriam finisce il pomeriggio così stanca che dice che sta per addormentarsi (sono le 20:08 al momento di questa foto). Allora prende la bici e torna a casa sua in Via del Freddo. Mi chiama tipo 3 minuti dopo dicendo che è caduta sul marciapiede e si è sbucciata un ginocchio. Le vado incontro e la trovo che porta il bolide rosa a mano e piange. Si giustifica dicendo che era troppo stanca per guidare (LA BICI).'
+            '17 Giugno 2024. Miriam sta contemporaneamente scrivendo la tesi (quanti piantini!) e preparando medicina interna. La frustrazione è alle stelle, e io con contribuisco dicendole in contionuo che non mi sembra un\' adulta funzionale per come sta gestendo la sua vita. Decide di paccare l\'esame. Da lì in poi una montagna russa di emozioni, che si alternano tra la tristezza e la disperazione, passando per l\'odio verso "quella puttana di medicina".',
+            '3 Marzo 2023. Una volta era tutto più semplice. Miri torna a casa dopo la laurea e mi dice che si sente pronta per affrontare il mondo. E\' il giorno in cui trova un lavoretto che però non la soddisfa per nulla. Tornando a casa, sul bus, piange. Il resto della settimana si alterna tra pianti e un veloce adattamento alla realtà.',
+            '9 Gennaio 2024. Miriam è in uno stato di angoscia per via della pressione che i genitori le fanno per trovare lavoro e non chiudersi in casa. Si abbandona a un pianto in treno mentre lo stress accumulato nei mesi si fa sentire. Senza dire nulla. Un brivido lungo la schiena.',
+            '11 Febbraio 2024. Miriam, per far passare il tempo, decide di guardare il film "A un metro da te" e di commentarlo in modo sarcastico. La scena è questa. Lei sorride, fa una faccia seria e conclude con "me ne frego di voi".'
         ];
 
-       // Correct answer indices corresponding to each photo
-        const correctAnswers = [0, 2, 3, 0, 1, 2, 1, 0, 1, 3, 0];
-
-        let currentIndex = 0;
-
-        // Function to preload images
-        function preloadImages(photoArray) {
-            photoArray.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
+        // Function to get a random photo and text
+        function getRandomPhoto() {
+            const randomIndex = Math.floor(Math.random() * photos.length);
+            return { src: photos[randomIndex], text: photoTexts[randomIndex] };
         }
 
-        // Function to show the next photo in order
-        function showNextPhoto() {
-            currentIndex = (currentIndex + 1) % photos.length;
-            displayPhoto();
-            resetChoices();
+        // Function to show popup
+        function showPopup(answerText) {
+            document.getElementById("answerText").innerText = answerText;
+            document.getElementById("popup").style.display = "block"; // Show popup
         }
 
-        // Function to show the previous photo in order
-        function showPrevPhoto() {
-            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
-            displayPhoto();
-            resetChoices();
-        }
-
-        // Function to display the current photo
-        function displayPhoto() {
-            const img = document.getElementById('randomPhoto');
-            img.src = photos[currentIndex];
-            img.style.display = 'block';
-        }
-
-        // Function to reset the choice button colors
-        function resetChoices() {
-            const buttons = document.querySelectorAll('.choice-btn');
-            buttons.forEach(button => {
-                button.style.backgroundColor = '';
-                button.disabled = false;
-            });
-        }
-
-        // Function to check the answer and color the buttons
-        function checkAnswer(selectedIndex) {
-            const correctIndex = correctAnswers[currentIndex];
-            const buttons = document.querySelectorAll('.choice-btn');
-            
-            buttons.forEach((button, index) => {
-                if (index === correctIndex) {
-                    button.style.backgroundColor = 'green';  // Correct answer
-                } else {
-                    button.style.backgroundColor = 'red';  // Wrong answer
-                }
-                button.disabled = true;  // Disable all buttons after a choice
-            });
-        }
-
-        // Add event listeners for the four choice buttons
-        document.getElementById('choice1').addEventListener('click', () => checkAnswer(0));
-        document.getElementById('choice2').addEventListener('click', () => checkAnswer(1));
-        document.getElementById('choice3').addEventListener('click', () => checkAnswer(2));
-        document.getElementById('choice4').addEventListener('click', () => checkAnswer(3));
-
-        // Preload images and show the first photo when the page is loaded
-        window.onload = () => {
-            preloadImages(photos);
-            displayPhoto();
+        // Handle clicks on the left and right areas
+        document.querySelector(".click-area.left").onclick = function() {
+            const randomPhoto = getRandomPhoto();
+            document.getElementById("randomPhoto").src = randomPhoto.src;
+            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
+            showPopup(randomPhoto.text); // Show the popup with the text
         };
 
+        document.querySelector(".click-area.right").onclick = function() {
+            const randomPhoto = getRandomPhoto();
+            document.getElementById("randomPhoto").src = randomPhoto.src;
+            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
+            showPopup(randomPhoto.text); // Show the popup with the text
+        };
 
-        // Event listener for the next/previous photo buttons
-        document.querySelector('.click-area.left').addEventListener('click', showPrevPhoto);
-        document.querySelector('.click-area.right').addEventListener('click', showNextPhoto);
-
-        // JavaScript for managing the popup
-        // Function to get the right answer based on your logic
-        function getAnswerForPhoto(photoIndex) {
-            // Return the answer based on the index (0-based)
-            return photoTexts[photoIndex]; // Adjust photoIndex according to your requirements
-        }
-
+        // Show answer button functionality
         document.getElementById("showAnswerButton").onclick = function() {
-            // For example, let's say we want to show the answer for Photo 1 (index 0)
-            const answer = getAnswerForPhoto(currentIndex);
-            document.getElementById("answerText").innerText = answer;
-            document.getElementById("popup").style.display = "block";
+            const randomPhoto = getRandomPhoto();
+            document.getElementById("randomPhoto").src = randomPhoto.src;
+            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
+            showPopup(randomPhoto.text); // Show the popup with the text
         }
 
-        document.getElementById("closePopup").onclick = function() {
-            document.getElementById("popup").style.display = "none";
+        // New close button functionality
+        document.getElementById("closePopupButton").onclick = function() {
+            document.getElementById("popup").style.display = "none"; // Close the popup
         }
-
-        // Close the popup if the user clicks anywhere outside of the popup
-        window.onclick = function(event) {
-            const popup = document.getElementById("popup");
-            if (event.target == popup) {
-                popup.style.display = "none";
-            }
-        }
-
-        
     </script>
 </body>
 </html>
