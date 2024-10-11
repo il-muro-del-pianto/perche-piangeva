@@ -55,43 +55,36 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-    .popup {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 50%; /* Center horizontally */
-        top: 80%; /* Center vertically */
-        transform: translate(-50%, -50%); /* Adjust positioning */
-        width: 70%; /* Width of the popup */
-        max-width: 400px; /* Maximum width */
-        max-height: 30%; /* Maximum height of the popup */
-        overflow-y: auto; /* Enable vertical scrolling */
-        background-color: rgba(255, 255, 255, 0.95); /* White background with some opacity */
-        border: 1px solid #888; /* Border for the popup */
-        border-radius: 8px; /* Rounded corners */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
-        padding: 5px; /* Padding inside the popup */
-    }
-    
-.close-button {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 10px; /* Padding */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    width: calc(70%); /* Same width as popup */
-    max-width: 400px; /* Same maximum width as popup */
-    margin: 0; /* No margin */
-    display: block; /* Make it a block element */
-    position: relative; /* Ensure it follows the popup */
-    left: 50%; /* Center it horizontally */
-    transform: translateX(-50%); /* Adjust for centering */
-    /* Hide the button initially */
-    display: none; /* Hidden by default */
-}
-
+        
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Higher than other content */
+            left: 50%; /* Center horizontally */
+            top: 50%; /* Center vertically */
+            transform: translate(-50%, -50%); /* Adjust positioning */
+            width: 70%; /* Width of the popup */
+            max-width: 400px; /* Maximum width */
+            max-height: 70%; /* Maximum height of the popup */
+            background-color: rgba(255, 255, 255, 0.95); /* White background with some opacity */
+            border: 1px solid #888; /* Border for the popup */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            padding: 5px; /* Padding inside the popup */
+            display: flex; /* Flexbox layout */
+            flex-direction: column; /* Vertical stacking */
+        }
+        
+        .text-container {
+            flex: 1; /* Allow the text container to grow */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        
+        .close-button {
+            margin-top: 10px; /* Space above the button */
+            align-self: flex-end; /* Align button to the right */
+            padding: 10px; /* Padding for the button */
+        }
 
     </style>
 </head>
@@ -117,11 +110,12 @@
     <!-- Popup Structure -->
 <div id="popup" class="popup">
     <div class="popup-content">
-        <p id="answerText">This is the right text!</p>
+        <div class="text-container">
+            <p id="answerText">This is the right text!</p>
+        </div>
+        <button id="closePopupButton" class="close-button">Chiudi</button>
     </div>
 </div>
-<button id="closePopupButton" class="close-button">Chiudi</button>
-
 
     
     <script>
@@ -140,7 +134,7 @@
         ];
         const photoTexts = [
             '15 Maggio 2023. La foto forse più emblematica degli ultimi anni. Miriam compra su Vinted un paio di Airpods. Sono nuove e costano 70€, un prezzo molto conveniente, che farebbe insospettire chiunque. Ma non lei. Le arrivano, le prova e dice che non funzionano bene. Allora andiamo all\' Apple Store più vicino per capirne di più. Salta fuori che sono un clone cinese. Miriam la prende male. Il resto è storia.',
-            '10 Ottobre 2022, giorno della laurea. Miriam si sveglia alle 7 e LETTERALMENTE la prima cosa che fa dopo aver alzato la mascherina dagli occhi è esordire con un principio di piantino perchè "ho dormito solo 3 ore". Fortunatamente si placa subito e nemmeno una lacrima viene versata. Sono contento. Purtroppo però è solo un\' illusione: 30 secondi dopo si alza e va in bagno, ribadendo che "ho paura di accendere la luce e vedere che aspetto ho". Beh quella maledetta luce la accende e sotto i suoi occhi trova due borse che arrivano a terra. Esplode in un pianto isterico accompagnato da commenti del tipo "di questo giorno mi rimarranno solo le foto e ho questo aspetto gneeeee". Poco dopo si fionda in cucina e si strofina un cubetto di ghiaccio in faccia per sgonfiare le Gucci che ha sotto agli occhi. Serve a poco. Tra me e me penso che la giornata inzia male.',
+            '10 Ottobre 2022ò, giorno della laurea. Miriam si sveglia alle 7 e LETTERALMENTE la prima cosa che fa dopo aver alzato la mascherina dagli occhi è esordire con un principio di piantino perchè "ho dormito solo 3 ore". Fortunatamente si placa subito e nemmeno una lacrima viene versata. Sono contento. Purtroppo però è solo un\' illusione: 30 secondi dopo si alza e va in bagno, ribadendo che "ho paura di accendere la luce e vedere che aspetto ho". Beh quella maledetta luce la accende e sotto i suoi occhi trova due borse che arrivano a terra. Esplode in un pianto isterico accompagnato da commenti del tipo "di questo giorno mi rimarranno solo le foto e ho questo aspetto gneeeee". Poco dopo si fionda in cucina e si strofina un cubetto di ghiaccio in faccia per sgonfiare le Gucci che ha sotto agli occhi. Serve a poco. Tra me e me penso che la giornata inzia male.',
             '5 Marzo 2022. Qualche giorno prima Miriam risulta positiva al Covid. Da brava cittadina quale è, si isola nell\' appartamento di Via Pennato nel quale vive. E\' una settimana difficile, fatta di sforzi e di rinunce. Durante questi giorni, incurante del prezzo dei tamponi (cosa MOLTO strana per lei) Miriam si testa di continuo. Finalmente si convince a rallentare la sua smania e aspettare il Sabato per ri-testarsi. Il giorno fatidico arriva e lei è pronta. Fa il tampone in diretta FaceTime con me. Risulta positiva. Non è contenta.',
             '27 Agosto 2023. Questa foto non ha una spiegazione. Miriam piange mentre mangia un ghiacciolo.',
             '25 Giugno 2022. Tra una settimana parto per il tircocinio che mi terrà lontano da Udine per sei brevissimi mesi. Miriam sfoga la sua frustrazione in biblioteca umanistica. Dal Gennaio dello stesso anno fino a quel momento, come una vedova Miriam si lascia andare a piantini già nostalgici (non sono acora partito) con una frequenza di 2/3 a settimana. Sono mesi lunghi e difficili.',
@@ -237,13 +231,11 @@
         document.getElementById("showAnswerButton").onclick = function() {
             const answer = getAnswerForPhoto(currentIndex);
             document.getElementById("answerText").innerText = answer;
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("closePopupButton").style.display = "block"; // Show close button
+            document.getElementById("popup").style.display = "flex"; // Use flex to allow proper layout
         }
-
+        
         document.getElementById("closePopupButton").onclick = function() {
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("closePopupButton").style.display = "none"; // Hide close button
+            document.getElementById("popup").style.display = "none"; // Hide the popup
         }
 
 
