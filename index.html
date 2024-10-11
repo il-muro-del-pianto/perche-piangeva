@@ -46,6 +46,7 @@
             right: 0;
         }
 
+        
         .choice-btn {
             font-size: 1em;
             padding: 8px 16px;
@@ -73,6 +74,20 @@
             padding: 5px; /* Padding inside the popup */
         }
 
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         .close-button {
             background-color: #4CAF50; /* Green background */
             color: white; /* White text */
@@ -83,6 +98,9 @@
             width: 100%; /* Full width */
             margin-top: 10px; /* Margin on top */
         }
+
+
+        
     </style>
 </head>
 <body>
@@ -95,6 +113,7 @@
     </div>
 
     <div id="choicesContainer">
+        <!-- Four choice buttons will go here -->
         <button class="choice-btn" id="choice1">Soldi</button>
         <button class="choice-btn" id="choice2">Amore</button>
         <button class="choice-btn" id="choice3">Studio</button>
@@ -106,8 +125,8 @@
     <!-- Popup Structure -->
     <div id="popup" class="popup">
         <div class="popup-content">
+            <span id="closePopup" class="close">&times;</span>
             <p id="answerText">This is the right text!</p>
-            <button id="closePopupButton" class="close-button">Close</button> <!-- New close button -->
         </div>
     </div>
 
@@ -140,46 +159,108 @@
             '19 Giugno 2022. Studiamo tutto il giorno a casa dei miei genitori. Miriam finisce il pomeriggio così stanca che dice che sta per addormentarsi (sono le 20:08 al momento di questa foto). Allora prende la bici e torna a casa sua in Via del Freddo. Mi chiama tipo 3 minuti dopo dicendo che è caduta sul marciapiede e si è sbucciata un ginocchio. Le vado incontro e la trovo che porta il bolide rosa a mano e piange. Si giustifica dicendo che era troppo stanca per guidare (LA BICI).'
         ];
 
+       // Correct answer indices corresponding to each photo
+        const correctAnswers = [0, 2, 3, 0, 1, 2, 1, 0, 1, 3, 0];
 
-        // Function to get a random photo and text
-        function getRandomPhoto() {
-            const randomIndex = Math.floor(Math.random() * photos.length);
-            return { src: photos[randomIndex], text: photoTexts[randomIndex] };
+        let currentIndex = 0;
+
+        // Function to preload images
+        function preloadImages(photoArray) {
+            photoArray.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         }
 
-        // Function to show popup
-        function showPopup(answerText) {
-            document.getElementById("answerText").innerText = answerText;
-            document.getElementById("popup").style.display = "block"; // Show popup
+        // Function to show the next photo in order
+        function showNextPhoto() {
+            currentIndex = (currentIndex + 1) % photos.length;
+            displayPhoto();
+            resetChoices();
         }
 
-        // Handle clicks on the left and right areas
-        document.querySelector(".click-area.left").onclick = function() {
-            const randomPhoto = getRandomPhoto();
-            document.getElementById("randomPhoto").src = randomPhoto.src;
-            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
-            showPopup(randomPhoto.text); // Show the popup with the text
+        // Function to show the previous photo in order
+        function showPrevPhoto() {
+            currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+            displayPhoto();
+            resetChoices();
+        }
+
+        // Function to display the current photo
+        function displayPhoto() {
+            const img = document.getElementById('randomPhoto');
+            img.src = photos[currentIndex];
+            img.style.display = 'block';
+        }
+
+        // Function to reset the choice button colors
+        function resetChoices() {
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(button => {
+                button.style.backgroundColor = '';
+                button.disabled = false;
+            });
+        }
+
+        // Function to check the answer and color the buttons
+        function checkAnswer(selectedIndex) {
+            const correctIndex = correctAnswers[currentIndex];
+            const buttons = document.querySelectorAll('.choice-btn');
+            
+            buttons.forEach((button, index) => {
+                if (index === correctIndex) {
+                    button.style.backgroundColor = 'green';  // Correct answer
+                } else {
+                    button.style.backgroundColor = 'red';  // Wrong answer
+                }
+                button.disabled = true;  // Disable all buttons after a choice
+            });
+        }
+
+        // Add event listeners for the four choice buttons
+        document.getElementById('choice1').addEventListener('click', () => checkAnswer(0));
+        document.getElementById('choice2').addEventListener('click', () => checkAnswer(1));
+        document.getElementById('choice3').addEventListener('click', () => checkAnswer(2));
+        document.getElementById('choice4').addEventListener('click', () => checkAnswer(3));
+
+        // Preload images and show the first photo when the page is loaded
+        window.onload = () => {
+            preloadImages(photos);
+            displayPhoto();
         };
 
-        document.querySelector(".click-area.right").onclick = function() {
-            const randomPhoto = getRandomPhoto();
-            document.getElementById("randomPhoto").src = randomPhoto.src;
-            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
-            showPopup(randomPhoto.text); // Show the popup with the text
-        };
 
-        // Show answer button functionality
+        // Event listener for the next/previous photo buttons
+        document.querySelector('.click-area.left').addEventListener('click', showPrevPhoto);
+        document.querySelector('.click-area.right').addEventListener('click', showNextPhoto);
+
+        // JavaScript for managing the popup
+        // Function to get the right answer based on your logic
+        function getAnswerForPhoto(photoIndex) {
+            // Return the answer based on the index (0-based)
+            return photoTexts[photoIndex]; // Adjust photoIndex according to your requirements
+        }
+
         document.getElementById("showAnswerButton").onclick = function() {
-            const randomPhoto = getRandomPhoto();
-            document.getElementById("randomPhoto").src = randomPhoto.src;
-            document.getElementById("randomPhoto").style.display = "block"; // Show the photo
-            showPopup(randomPhoto.text); // Show the popup with the text
+            // For example, let's say we want to show the answer for Photo 1 (index 0)
+            const answer = getAnswerForPhoto(currentIndex);
+            document.getElementById("answerText").innerText = answer;
+            document.getElementById("popup").style.display = "block";
         }
 
-        // New close button functionality
-        document.getElementById("closePopupButton").onclick = function() {
-            document.getElementById("popup").style.display = "none"; // Close the popup
+        document.getElementById("closePopup").onclick = function() {
+            document.getElementById("popup").style.display = "none";
         }
+
+        // Close the popup if the user clicks anywhere outside of the popup
+        window.onclick = function(event) {
+            const popup = document.getElementById("popup");
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        }
+
+        
     </script>
 </body>
 </html>
