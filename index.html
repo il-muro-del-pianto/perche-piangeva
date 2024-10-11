@@ -240,7 +240,7 @@
         
             // Set button colors based on correctness
             if (isCorrect) {
-                selectedButton.style.backgroundColor = 'green'; // Correct answer
+                selectedButton.style.backgroundColor = '#baffb9'; // Correct answer
             } else {
                 selectedButton.style.backgroundColor = 'red'; // Wrong answer
             }
@@ -249,7 +249,7 @@
             buttons.forEach((button, index) => {
                 button.disabled = true; // Disable all buttons
                 if (correctIndices.includes(index)) {
-                    button.style.backgroundColor = 'green'; // Show other correct answers in green
+                    button.style.backgroundColor = '#baffb9'; // Show other correct answers in green
                 }
             });
         }
