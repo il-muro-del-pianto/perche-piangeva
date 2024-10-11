@@ -56,25 +56,53 @@
             cursor: pointer;
         }
 
-      .popup {
+        .popup {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
             left: 0;
-            top: 0;
+            bottom: 0; /* Position at the bottom */
             width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0, 0, 0); /* Fallback color */
-            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            max-height: 300px; /* Maximum height of the popup */
+            overflow-y: auto; /* Enable vertical scrolling */
+            background-color: rgba(255, 255, 255, 0.9); /* White background with some opacity */
+            border-top: 1px solid #888; /* Optional: border at the top */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
+        }
+
+
+To position the popup at the bottom of the screen, make it smaller, and allow it to be scrollable, you can adjust the CSS styles for the popup and its content. Here's the updated code with those changes:
+
+Updated Code Example
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Popup Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            bottom: 0; /* Position at the bottom */
+            width: 100%; /* Full width */
+            max-height: 300px; /* Maximum height of the popup */
+            overflow-y: auto; /* Enable vertical scrolling */
+            background-color: rgba(255, 255, 255, 0.9); /* White background with some opacity */
+            border-top: 1px solid #888; /* Optional: border at the top */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Optional: shadow effect */
         }
 
         .popup-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
+            padding: 20px; /* Padding inside the popup */
         }
 
         .close {
