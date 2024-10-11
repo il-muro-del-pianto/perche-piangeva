@@ -123,12 +123,11 @@
     <button id="showAnswerButton">Mostra risposta</button>
 
     <!-- Popup Structure -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span id="closePopup" class="close">&times;</span>
-            <p id="answerText">This is the right text!</p>
-        </div>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <button id="closePopupButton" class="close-button">Chiudi</button>
     </div>
+</div>
 
     
     <script>
@@ -252,13 +251,6 @@
             document.getElementById("popup").style.display = "none";
         }
 
-        // Close the popup if the user clicks anywhere outside of the popup
-        window.onclick = function(event) {
-            const popup = document.getElementById("popup");
-            if (event.target == popup) {
-                popup.style.display = "none";
-            }
-        }
 
         
     </script>
